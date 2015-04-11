@@ -136,7 +136,7 @@ dreamsControllers.controller('DreamCtrl', ['$scope', 'Dream',
 
         /* Create Dream */
         $scope.submitCreate = function () {
-            $scope.errorContent = null;
+            $scope.errorCreateContent = null;
             Dream.save({}, $scope.formData,
                 function success(response) {
                     $scope.formData.content = null;
@@ -147,7 +147,7 @@ dreamsControllers.controller('DreamCtrl', ['$scope', 'Dream',
                     window.location = '#dreams';
                 },
                 function error(errorResponse) {
-                    $scope.errorContent = errorResponse.data.content[0];
+                    $scope.errorCreateContent = errorResponse.data.content[0];
                 }
             );
         };

@@ -226,9 +226,9 @@
                                 <input type="hidden" name="_token" value="<?php csrf_token() ?>">
                                 <div class="row">
 
-                                    <div class="form-group col-lg-12" ng-class="{'has-error': errorContent}">
+                                    <div class="form-group col-lg-12" ng-class="{'has-error': errorCreateContent}">
                                         <textarea rows="8" ng-model="formData.content" class="form-control" placeholder="Your dream just there..." name="content" id="content" required></textarea>
-                                        <small class="help-block">{{ errorContent}}</small>
+                                        <small class="help-block">{{ errorCreateContent }}</small>
                                     </div>
 
                                     <div class="form-group col-lg-12 text-center">
