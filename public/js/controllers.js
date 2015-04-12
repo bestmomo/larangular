@@ -112,7 +112,6 @@ dreamsControllers.controller('LoginCtrl', ['$scope', 'Login',
                 function success(response) {
                     if (response.result === 'success') {
                         $scope.$parent.isLogged = true;
-                        $scope.$parent.paginate();
                         window.location = '#page-top';
                     } else {
                         $scope.isAlert = true;
