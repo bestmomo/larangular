@@ -16,12 +16,12 @@ dreamsControllers.controller('AppCtrl', ['$scope', 'Log', 'Logout', 'Dream',
 
         /* Initial log */
         Log.get({},
-                function success(response) {
-                    $scope.isLogged = response.auth;
-                },
-                function error(errorResponse) {
-                    console.log("Error:" + JSON.stringify(errorResponse));
-                }
+            function success(response) {
+                $scope.isLogged = response.auth;
+            },
+            function error(errorResponse) {
+                console.log("Error:" + JSON.stringify(errorResponse));
+            }
         );
 
         /* Pagination */
@@ -31,14 +31,14 @@ dreamsControllers.controller('AppCtrl', ['$scope', 'Log', 'Logout', 'Dream',
             else if (direction === 'next')
                 ++$scope.page;
             Dream.get({page: $scope.page},
-            function success(response) {
-                $scope.data = response.data;
-                $scope.previous = response.prev_page_url;
-                $scope.next = response.next_page_url;
-            },
-                    function error(errorResponse) {
-                        console.log("Error:" + JSON.stringify(errorResponse));
-                    }
+                function success(response) {
+                    $scope.data = response.data;
+                    $scope.previous = response.prev_page_url;
+                    $scope.next = response.next_page_url;
+                },
+                function error(errorResponse) {
+                    console.log("Error:" + JSON.stringify(errorResponse));
+                }
             );
         };
 
@@ -50,7 +50,9 @@ dreamsControllers.controller('AppCtrl', ['$scope', 'Log', 'Logout', 'Dream',
             Logout.get({},
                 function success() {
                     $scope.isLogged = false;
-                    $scope.paginate();
+                    $.each($scope.data, function(key) {
+                        $scope.data[key].is_owner = false;
+                    });
                 },
                 function error(errorResponse) {
                     console.log("Error:" + JSON.stringify(errorResponse));
@@ -72,10 +74,9 @@ dreamsControllers.controller('AppCtrl', ['$scope', 'Log', 'Logout', 'Dream',
             if (confirm("Really delete this dream ?"))
             {
                 Dream.delete({id: id},
-                function success() {
-                    //delete $scope.data[index];
-                    $scope.paginate();
-                },
+                    function success() {
+                        $scope.paginate();
+                    },
                     function error(errorResponse) {
                         console.log("Error:" + JSON.stringify(errorResponse));
                     }
@@ -87,10 +88,10 @@ dreamsControllers.controller('AppCtrl', ['$scope', 'Log', 'Logout', 'Dream',
         $scope.submitChange = function () {
             $scope.errorContent = null;
             Dream.update({id: $scope.id}, {content: $scope.content},
-            function success(response) {
-                $scope.data[$scope.index].content = $scope.content;
-                $('#myModal').modal('hide');
-            },
+                function success(response) {
+                    $scope.data[$scope.index].content = $scope.content;
+                    $('#myModal').modal('hide');
+                },
                 function error(errorResponse) {
                     $scope.errorContent = errorResponse.data.content[0];
                 }
