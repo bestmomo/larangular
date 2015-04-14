@@ -2,6 +2,8 @@
 
 **Larangular** is a tutorial application.
 
+The french tutorial is [there](http://laravel.sl-creation.org/laravel-et-angularjs-presentation/).
+
 ### Installation ###
 
 * `git clone https://github.com/bestmomo/larangular.git projectname`
