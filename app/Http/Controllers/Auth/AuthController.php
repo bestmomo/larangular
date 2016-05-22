@@ -78,6 +78,19 @@ class AuthController extends Controller {
     }
 
     /**
+     * Redirect the user after determining they are locked out.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    protected function sendLockoutResponse(Request $request)
+    {
+        $seconds = $this->secondsRemainingOnLockout($request);
+
+        return response()->json(['result' => 'lockout', 'message' => $this->getLockoutErrorMessage($seconds)]);
+    }
+
+    /**
      * Log the user out of the application.
      *
      * @return \Illuminate\Http\Response

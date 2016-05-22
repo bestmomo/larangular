@@ -117,6 +117,11 @@ dreamsControllers.controller('LoginCtrl', ['$scope', 'Login',
                         window.location = '#page-top';
                     } else {
                         $scope.isAlert = true;
+                        if (response.result === 'lockout') {
+                            $scope.messageAlert = response.message;
+                        } else {
+                            $scope.messageAlert = 'These credentials do not match our records.';
+                        }
                     }
                 },
                 function error(errorResponse) {

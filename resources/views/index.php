@@ -183,7 +183,7 @@
                             <h2 class="text-center">Login</h2>
                             <form ng-controller="LoginCtrl" ng-submit="submit()" accept-charset="UTF-8" role="form">
                                 <div ng-show="isAlert" class="alert alert-danger" role="alert">
-                                    These credentials do not match our records.
+                                    {{ messageAlert }}
                                 </div>	                            
                                 <div class="row">
 
