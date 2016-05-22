@@ -2,7 +2,7 @@
 
 **Larangular** is a tutorial application.
 
-The french tutorial is [there](http://laravel.sl-creation.org/laravel-et-angularjs-presentation/).
+The french tutorial is [there](http://laravel.sillo.org/laravel-et-angularjs-presentation/).
 
 ### Installation ###
 
