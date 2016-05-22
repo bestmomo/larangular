@@ -208,13 +208,13 @@
                                     </div>    
 
                                     <div class="col-lg-12 text-center">					
-                                        <a href="password/email">I have forgoten my password !</a>
+                                        <a href="password/reset">I have forgoten my password !</a>
                                     </div>
                                 </div>
                             </form>                        
                             <div class="text-center">
                                 <br>
-                                <a href="auth/register" class="btn btn-default">I want to suscribe !</a>
+                                <a href="register" class="btn btn-default">I want to suscribe !</a>
                             </div>
                         </div>
 
@@ -243,7 +243,7 @@
         <!-- Footer -->
         <footer>
             <div class="container text-center">
-                <p>Copyright &copy; Bestmomo 2015</p>
+                <p>Copyright &copy; Bestmomo 2016</p>
             </div>
         </footer>
 

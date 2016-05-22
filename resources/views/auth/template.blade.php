@@ -69,7 +69,7 @@
         <!-- Footer -->
         <footer>
             <div class="container text-center">
-                <p>Copyright &copy; Bestmomo 2015</p>
+                <p>Copyright &copy; Bestmomo 2016</p>
             </div>
         </footer>
 

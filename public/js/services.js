@@ -6,21 +6,21 @@ var dreamsServices = angular.module('dreamsServices', ['ngResource']);
 
 dreamsServices.factory('Log', ['$resource',
     function ($resource) {
-        return $resource("auth/log", {}, {
+        return $resource("log", {}, {
             get: {method: 'GET'}
         });
     }]);
 
 dreamsServices.factory('Login', ['$resource',
     function ($resource) {
-        return $resource("auth/login", {}, {
+        return $resource("login", {}, {
             save: {method: 'POST'}
         });
     }]);
 
 dreamsServices.factory('Logout', ['$resource',
     function ($resource) {
-        return $resource("auth/logout", {}, {
+        return $resource("logout", {}, {
             get: {method: 'GET'}
         });
     }]);

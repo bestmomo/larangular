@@ -23,7 +23,6 @@ class DreamController extends Controller {
     {
         $this->dreamRepository = $dreamRepository;
 
-        //$this->middleware('ajax', ['except' => 'index']);
         $this->middleware('auth', ['only' => ['store', 'update', 'destroy']]);
     }
 

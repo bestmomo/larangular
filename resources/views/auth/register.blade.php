@@ -2,7 +2,7 @@
 
 @section('content')
                 <h2 class="text-center">Register</h2>
-                <form role="form" method="POST" action="{{ url('auth/register') }}">
+                <form role="form" method="POST" action="{{ url('register') }}">
                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
                     <div class="row">
 

@@ -4,10 +4,11 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Contracts\Auth\Guard;
-use Illuminate\Contracts\Auth\Registrar;
+use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use App\User;
+use Validator;
 
 class AuthController extends Controller {
     /*
@@ -21,28 +22,26 @@ class AuthController extends Controller {
       |
      */
 
-use AuthenticatesAndRegistersUsers;
+    use AuthenticatesAndRegistersUsers, ThrottlesLogins;
 
     /**
-     * Path redirection
+     * Where to redirect users after login / registration.
      *
      * @var string
      */
-    protected $redirectPath = '/';
+    protected $redirectTo = '/';
 
     /**
      * Create a new authentication controller instance.
      *
      * @param  \Illuminate\Contracts\Auth\Guard  $auth
-     * @param  \Illuminate\Contracts\Auth\Registrar  $registrar
      * @return void
      */
-    public function __construct(Guard $auth, Registrar $registrar)
+    public function __construct(Guard $auth)
     {
         $this->auth = $auth;
-        $this->registrar = $registrar;
 
-        $this->middleware('guest', ['except' => ['getLogout', 'getLog']]);
+        $this->middleware('guest', ['except' => ['logout', 'log']]);
     }
 
     /**
@@ -50,30 +49,31 @@ use AuthenticatesAndRegistersUsers;
      *
      * @return json
      */
-    public function getLog()
+    public function log()
     {
         return response()->json(['auth' => $this->auth->check()]);
     }
 
     /**
-     * Handle a login request to the application.
+     * Send the response after the user was authenticated.
      *
      * @param  \Illuminate\Http\Request  $request
+     * @param  User $user
      * @return \Illuminate\Http\Response
      */
-    public function postLogin(Request $request)
+    public function authenticated(Request $request, User $user)
     {
-        $this->validate($request, [
-            'email' => 'required|email', 'password' => 'required',
-        ]);
+        return response()->json(['result' => 'success']);
+    }
 
-        $credentials = $request->only('email', 'password');
-
-        if ($this->auth->attempt($credentials, $request->has('remember')))
-        {
-            return response()->json(['result' => 'success']);
-        }
-
+    /**
+     * Get the failed login response instance.
+     *
+     * @param \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    protected function sendFailedLoginResponse(Request $request)
+    {
         return response()->json(['result' => 'fail']);
     }
 
@@ -82,11 +82,41 @@ use AuthenticatesAndRegistersUsers;
      *
      * @return \Illuminate\Http\Response
      */
-    public function getLogout()
+    public function logout()
     {
         $this->auth->logout();
 
         return response()->json(['result' => 'success']);
+    }
+
+    /**
+     * Get a validator for an incoming registration request.
+     *
+     * @param  array  $data
+     * @return \Illuminate\Contracts\Validation\Validator
+     */
+    protected function validator(array $data)
+    {
+        return Validator::make($data, [
+            'name' => 'required|max:255',
+            'email' => 'required|email|max:255|unique:users',
+            'password' => 'required|min:6|confirmed',
+        ]);
+    }
+
+    /**
+     * Create a new user instance after a valid registration.
+     *
+     * @param  array  $data
+     * @return User
+     */
+    public function create(array $data)
+    {
+        return User::create([
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'password' => bcrypt($data['password']),
+        ]);
     }
 
 }
